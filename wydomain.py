@@ -135,8 +135,10 @@ def run(domain, outfile, name=""):
     if num == 0:
         www = 'www.' + domain
         subdomains.append(www)
+
+    subdomains.insert(0,name)
     _result_file = os.path.join(script_path, outfile)
-    save_result(_result_file, subdomains, name)
+    save_result(_result_file, subdomains)
     logging.info("{0} {1} subdomains save to {2}".format(
         domain, len(subdomains), _result_file))
 
