@@ -9,8 +9,8 @@ class Captcha(object):
     def __init__(self):
         super(Captcha, self).__init__()
         self.url = 'http://api.ysdm.net/create.json'
-        self.username = 'a61323636'
-        self.password = '123456'
+        self.username = 'Junay1'
+        self.password = '19951127'
         self.timeout = 90
         self.softid = 1
         self.softkey = 'b40ffbee5c1cf4e38028c197eb2fc751'
