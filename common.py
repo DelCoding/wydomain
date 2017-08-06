@@ -79,12 +79,20 @@ def curl_get_content(url):
     except Exception as e:
         pass
 
-def save_result(filename, args):
-    try:
-        fd = open(filename, 'w')
-        json.dump(args, fd, indent=4)
-    finally:
-        fd.close()
+def save_result(filename, args, name=""):
+    # try:
+    #     fd = open(filename, 'a+')
+    #     json.dump(args, fd, indent=4)
+    # finally:
+    #     fd.close()
+    fd = open(filename, 'a+')
+    #print len(args)
+    #print args
+    if name != "":
+        fd.write(name)
+        fd.write('\n')
+    json.dump(args, fd, indent=4)
+    fd.write('\n')
 
 def read_json(filename):
     if FileUtils.exists(filename):

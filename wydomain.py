@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# encoding: utf-8
+# coding: utf-8
 # email: ringzero@0x557.org
 # weibo: @ringzero
 
@@ -26,9 +26,8 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(message)s',
 )
 
-def run(args):
-    domain = args.domain
-    outfile = args.out
+
+def run(domain, outfile, name=""):
 
     if not domain:
         print('usage: wydomain.py -d aliyun.com')
@@ -132,8 +131,12 @@ def run(args):
 
     # save all subdomains to outfile
     subdomains = list(set(subdomains))
+    num = len(subdomains)
+    if num == 0:
+        www = 'www.' + domain
+        subdomains.append(www)
     _result_file = os.path.join(script_path, outfile)
-    save_result(_result_file, subdomains)
+    save_result(_result_file, subdomains, name)
     logging.info("{0} {1} subdomains save to {2}".format(
         domain, len(subdomains), _result_file))
 
@@ -144,10 +147,37 @@ if __name__ == '__main__':
         help="domain name")
     parser.add_argument("-o","--out",metavar="",default="domains.log",
         help="result out file")
+    parser.add_argument("-f", "--file", metavar="",
+                        help="domain file, Don't use -d where using -f")
     args = parser.parse_args()
+    if args.file == None:
+        try:
+            run(args.domain, args.out)
+        except KeyboardInterrupt:
+            logging.info("Ctrl C - Stopping Client")
+            sys.exit(1)
 
-    try:
-        run(args)
-    except KeyboardInterrupt:
-        logging.info("Ctrl C - Stopping Client")
-        sys.exit(1)
+    else:
+        if args.domain:
+            print "Don't use -d where using -f"
+            sys.exit(1)
+
+        path = args.file
+        domain_file = open(path,'r')
+        domain_arr = domain_file.readlines()
+        out_file = args.out
+        judge = True
+        for one_domain in domain_arr:
+            print 'coming --> ' + one_domain
+            try:
+                one_domain = one_domain.rstrip('\n')
+                name = one_domain.split(' ')[1]
+                one_domain = one_domain.split(' ')[0]
+                if judge:
+                    #去掉第一个编码问题
+                    one_domain = one_domain[3:]
+                    judge = False
+                run(one_domain, out_file, name)
+            except KeyboardInterrupt:
+                logging.info("Ctrl C - Stopping Client")
+                sys.exit(1)
