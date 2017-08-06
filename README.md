@@ -54,7 +54,7 @@ $ python dnsburte.py -d aliyun.com -f dnspod.csv -o aliyun.log
    
 ```
 $ python wydomain.py -h
-usage: wydomain.py [-h] [-d] [-o]
+usage: wydomain.py [-h] [-d] [-o] [-f]
 
 wydomain v 2.0 to discover subdomains of your target domain.
 
@@ -62,6 +62,7 @@ optional arguments:
   -h, --help      show this help message and exit
   -d , --domain   domain name
   -o , --out      result out file
+  -f , --file     batch domain discover with file, Don't use -d where using -f
 ```
 
 ### 3. 查看结果
