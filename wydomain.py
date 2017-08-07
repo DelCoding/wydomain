@@ -38,6 +38,8 @@ def run(domain, outfile, name=""):
     _cache_path = os.path.join(script_path, 'result/{0}'.format(domain))
     if not os.path.exists(_cache_path):
         os.makedirs(_cache_path, 0777)
+    else:
+        return
 
     # alexa result json file
     logging.info("starting alexa fetcher...")
