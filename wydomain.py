@@ -177,10 +177,10 @@ if __name__ == '__main__':
                 one_domain = one_domain.rstrip('\n')
                 name = one_domain.split(' ')[1]
                 one_domain = one_domain.split(' ')[0]
-                if judge:
-                    #去掉第一个编码问题
-                    one_domain = one_domain[3:]
-                    judge = False
+                #if judge:
+                #    #去掉第一个编码问题
+                #    one_domain = one_domain[3:]
+                #    judge = False
                 run(one_domain, out_file, name)
             except KeyboardInterrupt:
                 logging.info("Ctrl C - Stopping Client")
