@@ -167,20 +167,26 @@ if __name__ == '__main__':
             sys.exit(1)
 
         path = args.file
-        domain_file = open(path,'r')
+        new_path = unicode(path, 'gbk')
+        ff = new_path.find('?')
+        if ff != -1:
+            new_path = new_path.replace('?','')
+        print new_path
+
+        domain_file = open(new_path,'r')
         domain_arr = domain_file.readlines()
         out_file = args.out
-        judge = True
+        #judge = True
         for one_domain in domain_arr:
             print 'coming --> ' + one_domain
             try:
                 one_domain = one_domain.rstrip('\n')
                 name = one_domain.split(' ')[1]
                 one_domain = one_domain.split(' ')[0]
-                if judge:
-                    #去掉第一个编码问题
-                    one_domain = one_domain[3:]
-                    judge = False
+                # if judge:
+                #     #去掉第一个编码问题
+                #     one_domain = one_domain[3:]
+                #     judge = False
                 run(one_domain, out_file, name)
             except KeyboardInterrupt:
                 logging.info("Ctrl C - Stopping Client")
